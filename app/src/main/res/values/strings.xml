@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">RecDrawer</string>
+
+    <string name="header_text">Recursion Drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_visualization">Visualization</string>
+    <string name="tv_for_input_parametr1">Input</string>
+    <string name="btn_visualizate">Visualizate IT!!!</string>
+    <string name="tv_ratio_seek">Ratio = 5</string>
+    <string name="tv_size_seek">Size = 3</string>
+    <string name="tv_recur_depth">Recursion depth = 3</string>
+
+</resources>

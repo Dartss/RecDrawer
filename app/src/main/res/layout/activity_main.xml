@@ -1,0 +1,73 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/header_text"
+        android:textSize="40dp"/>
+
+    <TextView
+        android:id="@+id/tvRatioSeek"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_ratio_seek"
+        android:textSize="20dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="5dp"/>
+
+    <SeekBar
+        android:id="@+id/ratioSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:progress="5"
+        android:max="10"/>
+
+    <TextView
+        android:id="@+id/tvSizeSeek"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_size_seek"
+        android:textSize="20dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="5dp"/>
+
+    <SeekBar
+        android:id="@+id/sizeSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:progress="3"
+        android:max="9"/>
+
+    <TextView
+        android:id="@+id/tvRecurDepth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_recur_depth"
+        android:textSize="20dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="5dp"/>
+
+    <SeekBar
+        android:id="@+id/recurDepthSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:progress="0"
+        android:max="7" />
+
+    <Button
+        android:id="@+id/btnVisualizate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_visualizate"
+        android:onClick="startVisualization"/>
+
+
+</LinearLayout>
