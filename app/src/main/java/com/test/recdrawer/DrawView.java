@@ -42,12 +42,12 @@ class DrawView extends SurfaceView implements SurfaceHolder.Callback  {
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         boolean retry = true;
-        drawThread.setRunning(false);
+        drawThread.stopDrawing();
         while (retry) {
             try {
                 drawThread.join();
                 retry = false;
-            } catch (InterruptedException e) {
+            } catch (InterruptedException ignored) {
             }
         }
     }
@@ -57,35 +57,36 @@ class DrawView extends SurfaceView implements SurfaceHolder.Callback  {
     }
 
     class DrawThread extends Thread {
-        private boolean running = false;
+        private boolean isPaused = false;
+        private boolean isStoped = false;
         private SurfaceHolder surfaceHolder;
-        private boolean isInterrupted = false;
 
         public DrawThread(SurfaceHolder surfaceHolder) {
             this.surfaceHolder = surfaceHolder;
         }
 
-        public void setRunning(boolean running) {
-            this.running = running;
+        public boolean isRunning() {
+            return !isPaused;
         }
-
-        public  boolean isRunning(){ return  this.running; }
 
         public void pauseDrawing() {
-            setRunning(false);
-        }
-
-        public void stopDrawing() { isInterrupted = true;
+            isPaused = true;
         }
 
         public synchronized void resumeDrawing() {
-            setRunning(true);
+            isPaused = false;
             notify();
+        }
+
+        public synchronized void stopDrawing() {
+            isStoped = true;
+            if ( isPaused ) {
+                notify();
+            }
         }
 
         @Override
         public void run() {
-            setRunning(true);
             ArrayList<Line> drawenLines = new ArrayList<>();
             CalculatingCordinates calc =
                     new CalculatingCordinates(displayWidth, displayHeight, parameters);
@@ -96,7 +97,7 @@ class DrawView extends SurfaceView implements SurfaceHolder.Callback  {
             int i = 0;
             int limit = lines.size();
 
-            for ( ; i < limit && !isInterrupted; ) {
+            for ( ; i < limit && !isStoped; ) {
                 Line currentLine = lines.get(i);
                 Log.d("Lines are drawen", currentLine.toString());
                 try {
@@ -132,7 +133,7 @@ class DrawView extends SurfaceView implements SurfaceHolder.Callback  {
                 }
 
                 synchronized(this) {
-                    while(!running) {
+                    if(isPaused) {
                         try {
                             wait();
                         } catch (InterruptedException e) {
